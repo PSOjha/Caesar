@@ -25,11 +25,13 @@ public class PandoraBot extends BasicBot {
     public String getWhatBotThinks(String sourceBuddyMessage) {
 
         final String caesarSays = Caeser.think(sourceBuddyMessage);
+        System.out.println("Says : " + caesarSays);
         if (caesarSays != null) {
             return caesarSays;
         }
 
         try {
+            System.out.println("SRC : " + sourceBuddyMessage);
             final String whatBotThinks = pandoraBotSession.think(sourceBuddyMessage);
             return getWhatYouThink(whatBotThinks);
         } catch (Exception e) {

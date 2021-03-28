@@ -1,7 +1,5 @@
 package com.theah64.caesar;
 
-import com.theah64.caesar.bots.BasicBot;
-import com.theah64.caesar.bots.CleverBot;
 import com.theah64.caesar.bots.PandoraBot;
 import com.theah64.caesar.models.Buddy;
 import com.theah64.caesar.utils.CommonUtils;
@@ -10,9 +8,10 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
 
-import java.io.Console;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Created by shifar on 7/3/16.
@@ -20,28 +19,30 @@ import java.util.*;
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
-
     private static Map<String, Buddy> buddyList;
+    private static final boolean IS_DEBUG = true;
 
     public static void main(String[] args) throws IOException {
 
+
         //Asking email
         String email;
-        do {
-            System.out.print("Enter your google email: ");
-            email = scanner.nextLine();
-        } while (!CommonUtils.isValidEmail(email));
-
-
-        //Asking password
-        String password;
-        final Console console = System.console();
-        if (console == null) {
-            System.out.println("Error: couldn't find console");
-            throw new IOException("Failed to get console");
+        if (IS_DEBUG) {
+            email = "moviemonk64@gmail.com";
         } else {
-            final char[] passArr = console.readPassword("Enter password: ");
-            password = new String(passArr);
+            do {
+                System.out.print("Enter your google email: ");
+                email = scanner.nextLine();
+            } while (!CommonUtils.isValidEmail(email));
+        }
+
+        String password = null;
+        if (!IS_DEBUG) {
+            //Asking passwords
+            System.out.println("Enter password : ");
+            password = scanner.nextLine();
+        } else {
+            password = "CFJb5BM2rrwGsXn";
         }
 
         //Building XMPP Connection
@@ -86,7 +87,9 @@ public class Main {
                 if (!buddyList.containsKey(source)) {
 
                     //Building a bot randomly
+                    System.out.println("Adding buddy...");
                     final Buddy newBuddy = new Buddy(source, new PandoraBot());
+                    System.out.println("Buddy created...");
 
                     //Adding new buddy to the list
                     buddyList.put(source, newBuddy);
@@ -117,7 +120,7 @@ public class Main {
                 final Buddy sourceBuddy = buddyList.get(message.getFrom());
 
                 if (sourceBuddy != null) {
-                    System.out.println("--------------------------");
+                    System.out.println("-------------------------- ");
                     final String sourceBuddyMessage = message.getBody();
                     System.out.println(String.format("%s: %s", sourceBuddy.getEmail(), sourceBuddyMessage));
                     final String wotBotThinks = sourceBuddy.getBot().getWhatBotThinks(sourceBuddyMessage);

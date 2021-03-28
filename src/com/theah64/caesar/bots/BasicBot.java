@@ -1,7 +1,6 @@
 package com.theah64.caesar.bots;
 
 import com.google.code.chatterbotapi.ChatterBotFactory;
-import javafx.animation.FadeTransitionBuilder;
 
 /**
  * Created by shifar on 7/3/16.

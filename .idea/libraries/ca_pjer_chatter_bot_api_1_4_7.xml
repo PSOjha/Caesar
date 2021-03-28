@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="ca.pjer:chatter-bot-api:1.4.7" type="repository">
+    <properties maven-id="ca.pjer:chatter-bot-api:1.4.7" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/ca/pjer/chatter-bot-api/1.4.7/chatter-bot-api-1.4.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
